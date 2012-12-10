@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<!--                 
+    Cleans, retrieves, builds, and deploys application.
+-->
+<project name="digital-asset-management" default="all" basedir=".">
+	<description>Digital Asset Management Service Build</description>
+	<!-- Externally defined properties -->
+	<property file="build.properties" />
+	<!-- Build Properties -->
+	<property name="src.dir" value="${src.dir}" />
+	<property name="autogen.dir" value="${autogen.dir}" />
+	<property name="xsd.dir" value="${xsd.dir}" />
+	<property name="config.dir" value="${config.dir}" />
+	<property name="web.dir" value="${web.dir}" />
+	<property name="lib.dir" value="${lib.dir}" />
+	<property name="build.dir" value="${build.dir}" />
+	<property name="dist.dir" value="${dist.dir}" />
+	<property name="war.dir" value="${war.dir}" />
+
+	<!-- =================================================================== -->
+	<!--             THIRD PARTY JARS                               		 -->
+	<!-- =================================================================== -->
+
+
+	<!-- Spring libraries -->
+	<fileset id="spring" dir="${lib.dir}">
+		<include name="spring.aop-3.0.6.jar" />
+		<include name="spring-aopalliance-1.0.0.jar" />
+		<include name="spring-asm-3.0.6.jar" />
+		<include name="spring-aspectj-runtime-1.6.8.jar" />
+		<include name="spring-aspectj-weaver-1.6.8.jar" />
+		<include name="spring-aspects-3.0.6.jar" />
+		<include name="spring-beans-3.0.6.jar" />
+		<include name="spring-context-3.0.6.jar" />
+		<include name="spring-context-support-3.0.6.jar" />
+		<include name="spring-core-3.0.6.jar" />
+		<include name="spring-expression-3.0.6.jar" />
+		<include name="spring-jms-3.0.6.jar" />
+		<include name="spring-oxm-3.0.6.jar" />
+		<include name="spring-transaction-3.0.6.jar" />
+		<include name="spring-web-3.0.6.jar" />
+	</fileset>
+
+	<!-- slf4j libraries -->
+	<fileset id="slf4j" dir="${lib.dir}" includes="slf4j-api-1.6.1.jar" />
+
+	<!-- Apache libraries -->
+	<fileset id="apache" dir="${lib.dir}">
+		<include name="commons-logging-1.1.1.jar" />
+		<include name="commons-lang-2.4.jar" />
+		<include name="commons-beanutils.jar" />
+		<include name="velocity-1.7-dep.jar" />
+	</fileset>
+
+	<!-- Logback libraries -->
+	<fileset id="logback" dir="${lib.dir}">
+		<include name="logback-access-0.9.28.jar" />
+		<include name="logback-classic-0.9.28.jar" />
+		<include name="logback-core-0.9.28.jar" />
+	</fileset>
+
+	<!-- CXF libraries -->
+	<fileset id="cxf" dir="${lib.dir}">
+		<include name="xmlschema-core-2.0.jar" />
+		<include name="neethi-3.0.1.jar" />
+		<include name="wsdl4j-1.6.2.jar" />
+		<include name="cxf-2.4.2.jar" />
+	</fileset>
+
+	<!-- Code Generation libraries -->
+	<fileset id="cglib" dir="${lib.dir}" includes="cglib-nodep-2.1_3.jar" />
+
+	<!-- JMS libraries -->
+	<fileset id="jms" dir="${lib.dir}">
+		<include name="jms.jar" />
+		<include name="activemq-core-5.5.1.jar" />
+	</fileset>
+
+	<!-- mapper libraries -->
+	<fileset id="smooks" dir="${lib.dir}" includes="smooks*.jar" />
+
+	<!-- Jaxb libraries -->
+	<fileset id="jaxb" dir="${jaxb.lib}">
+		<include name="jaxb-api.jar" />
+		<include name="jaxb-impl.jar" />
+		<include name="jaxb-xjc.jar" />
+	</fileset>
+
+
+	<!-- =================================================================== -->
+	<!--             Dependent Application Jars                       		 -->
+	<!-- =================================================================== -->
+
+	<fileset id="bridgeCommonUtils" dir="${bridgeCommonUtils.dir}/dist" includes="bridge-common-utils.jar" />
+	<fileset id="xytechApiAdapter" dir="${xytechApiAdapter.dir}/dist" includes="xytech-api-adapter.jar" />
+
+
+	<path id="build.classpath">
+
+		<!-- Complied classes directory -->
+		<pathelement location="${build.dir}" />
+
+		<!-- Third parth libraries -->
+		<fileset refid="spring" />
+		<fileset refid="slf4j" />
+		<fileset refid="apache" />
+		<fileset refid="logback" />
+		<fileset refid="cxf" />
+		<fileset refid="cglib" />
+		<fileset refid="jms" />
+		<fileset refid="smooks" />
+			
+
+		<!-- Dependent Application jars -->
+		<fileset refid="bridgeCommonUtils" />
+		<fileset refid="xytechApiAdapter" />
+
+	</path>
+
+	<!-- ============ TARGETS ============ -->
+
+	<target name="all" depends="clean, build, deploy">
+		<tstamp>
+			<format property="BUILD_COMPLETE_TIME" pattern="hh:mm:ss aa" />
+		</tstamp>
+		<echo message="${app.name}.war - Build Completed(${BUILD_COMPLETE_TIME})(java version:${java.version})... " />
+	</target>
+
+	<!-- =================================================================== -->
+	<!--             CLEAN                                      			 -->
+	<!-- =================================================================== -->
+	<target name="clean">
+		<delete includeEmptyDirs="true" quiet="true">
+			<fileset dir="${dist.dir}" />
+			<fileset dir="${build.dir}" />
+			<fileset dir="${war.dir}" />
+		</delete>
+	</target>
+
+	<!-- ==================================================================== -->
+	<!--      Compile and Create Deployable Archives                          -->
+	<!-- ==================================================================== -->
+
+	<target name="build" depends="compile, build-jar, build-war" />
+
+	<target name="directories">
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+		<mkdir dir="${war.dir}" />
+	</target>
+
+	<target name="compile" depends="directories" description="Compile the Java source code">
+		<javac destdir="${build.dir}" classpathref="build.classpath" debug="${javac.debug}" deprecation="${javac.deprecation}" fork="yes" nowarn="on">
+			<src path="${src.dir}" />
+			<src path="${autogen.dir}" />
+			<exclude name="com/igate/**/test/**" />
+		</javac>
+	</target>
+
+	<target name="build-jar" depends="compile">
+		<echo message="Building jar file" />
+		<copy todir="${build.dir}">
+			<fileset dir="${config.dir}">
+				<include name="*.xml" />
+			</fileset>
+			<fileset dir="${logback.dir}">
+				<include name="*.xml" />
+			</fileset>
+		</copy>
+		<jar destfile="${dist.dir}/${app.name}.jar" basedir="${build.dir}" compress="true" />
+	</target>
+
+	<target name="build-war" depends="build-jar">
+
+		<echo message="Building war file" />
+
+		<copy todir="${war.dir}/WEB-INF/lib">
+
+			<!-- Third party libraries -->
+			<fileset refid="spring" />
+			<fileset refid="slf4j" />
+			<fileset refid="apache" />
+			<fileset refid="logback" />
+			<fileset refid="cxf" />
+			<fileset refid="cglib" />
+			<fileset refid="jms" />
+
+
+			<!-- Dependent Application Jars -->
+	
+
+
+			<!-- Application Jar file -->
+			<fileset dir="${dist.dir}" includes="${app.name}.jar" />
+		</copy>
+
+		<copy todir="${war.dir}/WEB-INF/">
+			<fileset dir="${web.dir}/" includes="*.xml" />
+		</copy>
+
+		<delete file="${war.dir}/${app.name}.war" />
+
+		<jar destfile="${war.dir}/${app.name}.war" basedir="${war.dir}" compress="true" />
+
+		<echo message="Finished creating ${app.name}.war file" />
+
+	</target>
+
+	<target name="deploy" depends="build-war" description="Deploys War" />	
+
+	<target name="deleteWar">
+		<delete file="${jboss.deploy}/${app.name}.war" />
+		<delete dir="${jboss.conf}/dam" />
+	</target>
+
+	<target name="copywar" depends="deleteWar" description="Copies War">
+
+		<copy file="${war.dir}/${app.name}.war" tofile="${jboss.deploy}/${app.name}.war" overwrite="true" failonerror="true" />
+		<mkdir dir="${jboss.conf}/abbridge" />
+		<copy todir="${jboss.conf}/dam" overwrite="true" failonerror="true">
+			<fileset dir="${config.dir}/dam" />
+		</copy>
+
+
+	</target>
+
+	<target name="cleandeploy" depends="clean,deploy,copywar" description="Clean and Deploys War" />
+
+	<!-- ==================================================================== -->
+	<!--    XML 2 Java converstion                      				      -->
+	<!-- ==================================================================== -->
+
+	<target name="XJCToJAVA" description="Process resources">
+		<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+			<classpath>
+				<fileset refid="jaxb" />
+			</classpath>
+		</taskdef>
+		<xjc destdir="${autogen.dir}" extension="true">
+			<schema dir="${xsd.dir}" includes="*.xsd" />
+		</xjc>
+	</target>
+
+	<!-- ==================================================================== -->
+	<!--    iCompliance					                     				      -->
+	<!-- ==================================================================== -->
+	
+</project>
