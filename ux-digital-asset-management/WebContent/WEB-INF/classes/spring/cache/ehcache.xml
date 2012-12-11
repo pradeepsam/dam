@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache>
+	<defaultCache maxElementsInMemory="500" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+	
+		
+		<cache name="phoneType" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="phoneTypes" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="personPhoneTypes" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="bePhoneTypes" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+				
+		<cache name="emailType" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="emailTypes" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="digitalAddressType" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="digitalAddressTypes" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="addressRole" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="addressRoles" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="addressRoleByCode" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="personAddressRoles" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="beAddressRoles" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="country" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="countries" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="countryByCode" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="state" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="agencies" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="states" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />		
+		
+		<cache name="approvalStatus" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="approvalStatuses" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="crossReferenceSystem" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		<cache name="crossReferenceSystems" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		<cache name="approvalStatusByCode" maxElementsInMemory="20" eternal="true"
+		overflowToDisk="false" memoryStoreEvictionPolicy="LFU" />
+		
+		
+		
+</ehcache>

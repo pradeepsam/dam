@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+<consolePlugin />
+	<!-- Appender for ADDRESS BOOK SERVICES -->
+	<appender name="ADDRESSBOOK"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<File>${jboss.server.log.dir}/addressbook/addressbook.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>${jboss.server.log.dir}/addressbook/addressbook.log.%i</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- Appender for CXF -->
+	<appender name="CXF"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<File>${jboss.server.log.dir}/addressbook/cxf.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>${jboss.server.log.dir}/addressbook/cxf.log.%i</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<!-- Appender for SPRING -->
+	<appender name="SPRING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<File>${jboss.server.log.dir}/addressbook/addressbook-spring.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>${jboss.server.log.dir}/addressbook/addressbook-spring.log.%i</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- Appender for profiler -->
+	<appender name="PROFILER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${jboss.server.log.dir}/addressbook/addressbook-profiler.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>${jboss.server.log.dir}/addressbook/addressbook-profiler.log.%i
+			</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<appender name="DOZER"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender -->
+		<File>${jboss.server.log.dir}/addressbook/addressbook-dozer.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>${jboss.server.log.dir}/addressbook/addressbook-dozer.log.%i
+			</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+
+	<!-- Appender for hibernate -->
+	<appender name="HIBERNATE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${jboss.server.log.dir}/addressbook/addressbook-hibernate.log</File>
+		<encoder>
+			<pattern>%d{dd MMM yyyy HH:mm:ss:SSS} %-5p [%c] [%thread] %m%n%L
+			</pattern>
+		</encoder>
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<maxIndex>15</maxIndex>
+			<FileNamePattern>>${jboss.server.log.dir}/addressbook/addressbook-hibernate.log.%i
+			</FileNamePattern>
+		</rollingPolicy>
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<MaxFileSize>100MB</MaxFileSize>
+		</triggeringPolicy>
+	</appender>
+	
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%-4relative [%thread] %-5level %logger{35} - %msg %n
+			</pattern>
+		</encoder>
+	</appender>
+	
+	<root level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</root> 
+
+	<logger name="org.apache.cxf" level="error">
+		<appender-ref ref="CXF"></appender-ref>
+	</logger>
+	
+	<logger name="org.springframework" level="debug">
+		<appender-ref ref="SPRING"></appender-ref>
+	</logger>
+
+	<logger name="com.nbcu.addressbook" level="debug">
+		<appender-ref ref="ADDRESSBOOK"></appender-ref>
+	</logger>
+	
+	<logger name="com.nbcu.common" level="debug">
+		<appender-ref ref="ADDRESSBOOK"></appender-ref>
+	</logger>
+
+	<logger name="com.nbcu.common.framework.aspect" level="info">
+		<appender-ref ref="PROFILER"></appender-ref>
+	</logger>
+	<logger name="org.dozer" level="error">
+		<appender-ref ref="DOZER"></appender-ref>
+	</logger>
+
+	<logger name="org.hibernate" level="info">
+		<appender-ref ref="HIBERNATE"></appender-ref>
+	</logger>
+	
+
+</configuration>
