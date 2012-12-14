@@ -1,0 +1,296 @@
+Welcome to Git (version 1.8.0-preview20121022)
+
+
+Run 'git help git' to display the help index.
+Run 'git help <command>' to display help for specific commands.
+
+713948@GDCWF713948 ~
+$ -help
+sh.exe": -help: command not found
+
+713948@GDCWF713948 ~
+$ pwd
+/c/Documents and Settings/713948.IGATEGEGDC
+
+713948@GDCWF713948 ~
+$ cd d:
+
+713948@GDCWF713948 /d
+$ pwd
+/d
+
+713948@GDCWF713948 /d
+$ cd DAM-PROJ/Proj-Files/
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files
+$ pwd
+/d/DAM-PROJ/Proj-Files
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files
+$ git init
+Initialized empty Git repository in d:/DAM-PROJ/Proj-Files/.git/
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git -help
+Unknown option: -help
+usage: git [--version] [--exec-path[=<path>]] [--html-path] [--man-path] [--info
+-path]
+           [-p|--paginate|--no-pager] [--no-replace-objects] [--bare]
+           [--git-dir=<path>] [--work-tree=<path>] [--namespace=<name>]
+           [-c name=value] [--help]
+           <command> [<args>]
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git clone https://github.com/pradeepsam/dam .
+fatal: destination path '.' already exists and is not an empty directory.
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git clone https://github.com/pradeepsam/dam
+Cloning into 'dam'...
+error: Couldn't resolve host 'github.com' while accessing https://github.com/pra
+deepsam/dam/info/refs?service=git-upload-pack
+fatal: HTTP request failed
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git clone https://github.com/pradeepsam/dam.git
+Cloning into 'dam'...
+error: Couldn't resolve host 'github.com' while accessing https://github.com/pra
+deepsam/dam.git/info/refs?service=git-upload-pack
+fatal: HTTP request failed
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git clone https://github.com/pradeepsam/dam.git
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git config --proxy http.proxy=localhost:1540
+error: unknown option `proxy'
+usage: git config [options]
+
+Config file location
+    --global              use global config file
+    --system              use system config file
+    --local               use repository config file
+    -f, --file <file>     use given config file
+
+Action
+    --get                 get value: name [value-regex]
+    --get-all             get all values: key [value-regex]
+    --get-regexp          get values for regexp: name-regex [value-regex]
+    --replace-all         replace all matching variables: name value [value_rege
+x]
+    --add                 add a new variable: name value
+    --unset               remove a variable: name [value-regex]
+    --unset-all           remove all matches: name [value-regex]
+    --rename-section      rename section: old-name new-name
+    --remove-section      remove a section: name
+    -l, --list            list all
+    -e, --edit            open an editor
+    --get-color <slot>    find the color configured: [default]
+    --get-colorbool <slot>
+                          find the color setting: [stdout-is-tty]
+
+Type
+    --bool                value is "true" or "false"
+    --int                 value is decimal number
+    --bool-or-int         value is --bool or --int
+    --path                value is a path (file or directory name)
+
+Other
+    -z, --null            terminate values with NUL byte
+    --includes            respect include directives on lookup
+
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git config --global http.proxy http://localhost:1540
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git clone https://github.com/pradeepsam/dam.git
+Cloning into 'dam'...
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ git pull https://github.com/pradeepsam/dam.git
+remote: Counting objects: 3, done.
+remote: Compressing objects: 100% (2/2), done.
+remote: Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+From https://github.com/pradeepsam/dam
+ * branch            HEAD       -> FETCH_HEAD
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ ls
+README.md  dam
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files (master)
+$ cd dam/
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ ls
+README.md
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ vim index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git status
+# On branch master
+# Untracked files:
+#   (use "git add <file>..." to include in what will be committed)
+#
+#       index.php
+nothing added to commit but untracked files present (use "git add" to track)
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git add index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ ls
+README.md  index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git commit
+[master ea6eabc] first commit
+ Committer: unknown <713948@GDCWF713948.igategegdc.com>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly:
+
+    git config --global user.name "Your Name"
+    git config --global user.email you@example.com
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 3 insertions(+)
+ create mode 100644 index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git push
+warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+Username for 'https://github.com': Aniyarath/
+Password for 'https://Aniyarath@github.com':
+fatal: Authentication failed
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git config --global user.name "Aniyarath"
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git config --global user.email "rajeshaniyarath@gmail.com"
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git push
+warning: push.default is unset; its implicit value is changing in
+Git 2.0 from 'matching' to 'simple'. To squelch this message
+and maintain the current behavior after the default changes, use:
+
+  git config --global push.default matching
+
+To squelch this message and adopt the new behavior now, use:
+
+  git config --global push.default simple
+
+See 'git help config' and search for 'push.default' for further information.
+(the 'simple' mode was introduced in Git 1.7.11. Use the similar mode
+'current' instead of 'simple' if you sometimes use older versions of Git)
+
+Username for 'https://github.com': Aniyarath
+Password for 'https://Aniyarath@github.com':
+Counting objects: 4, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 309 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/pradeepsam/dam.git
+   c1ff2c7..ea6eabc  master -> master
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git pull origin master
+From https://github.com/pradeepsam/dam
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ ls
+DROOLS DOCUMENTATION.doc  JNotify.doc  README.md  index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git add DROOLS\ DOCUMENTATION.doc
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ gitk
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git commit
+# On branch master
+# Your branch and 'origin/master' have diverged,
+# and have 1 and 1 different commit each, respectively.
+#
+nothing to commit, working directory clean
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ vim .git/config
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git pull origin master
+From https://github.com/pradeepsam/dam
+ * branch            master     -> FETCH_HEAD
+Already up-to-date!
+Merge made by the 'recursive' strategy.
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git status
+# On branch master
+# Your branch is ahead of 'origin/master' by 2 commits.
+#
+nothing to commit, working directory clean
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ ls
+DROOLS DOCUMENTATION.doc  JNotify.doc  README.md  index.php
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$ git push origin master
+Username for 'https://github.com': Aniyarath
+Password for 'https://Aniyarath@github.com':
+Counting objects: 6, done.
+Delta compression using up to 2 threads.
+Compressing objects: 100% (5/5), done.
+Writing objects: 100% (5/5), 16.32 KiB, done.
+Total 5 (delta 2), reused 0 (delta 0)
+To https://github.com/pradeepsam/dam.git
+   0e664a9..590aa90  master -> master
+
+713948@GDCWF713948 /d/DAM-PROJ/Proj-Files/dam (master)
+$
