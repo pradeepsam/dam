@@ -1,7 +1,12 @@
 package com.igate.dam.smooks.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
+
 import org.milyn.payload.JavaResult;
 
 import com.igate.dam.smooks.Logger.SmooksLoggerUtil;
@@ -14,11 +19,13 @@ public class TransformationMain {
 	SmooksLoggerUtil smooksloggerutil=new SmooksLoggerUtil();
 	/**
 	 * @param args
+	 * @throws IOException 
+	 * @throws FileNotFoundException 
 	 * @throws DamSmooksException
 	 */
 	@SuppressWarnings("rawtypes")
 	
-	public void fileMapperOperationInput(File inputFile)
+	public void fileMapperOperationInput(File inputFile) throws DamSmooksException
 	{
 		
 		String fileName = null;
@@ -27,10 +34,8 @@ public class TransformationMain {
 		String configFileName = null;
 		JavaResult javaResult = null;
 		Person person = new Person();
-		String outputFilePath = null;
+		String outputFilePath=null;
 		
-		
-
 		try
 		{
 		
@@ -46,12 +51,13 @@ public class TransformationMain {
 				javaResult  = smooksBO.xmlToJavaTransformation(inputFile, configFileName);
 				person = (Person) javaResult.getBean("person");
 				smooksloggerutil.display("XML to Java Transformation results in Java bean output --->"+person.getFirstName());
-				//System.out.println("XML to Java Transformation results in Java bean output --->"+person.getFirstName()); 
 			}
 			else if(ext.equalsIgnoreCase("java")){
 				configFileName = "smooks-config-JavaToXml.xml";
-				outputFilePath = "D:\\WIP\\destination1.xml";
-				smooksBO.javaToXMLTransformation(person, configFileName, outputFilePath);
+				Properties properties=new Properties();
+				properties.load(new FileInputStream(new File("resources\\FilePaths.properties")));
+				outputFilePath =properties.getProperty("outputDirectory");
+			    smooksBO.javaToXMLTransformation(person, configFileName,outputFilePath);
 				smooksloggerutil.display("output xml is stored in :"+outputFilePath);
 			}
 			else if(ext.equalsIgnoreCase("csv")){
@@ -65,6 +71,13 @@ public class TransformationMain {
 			}
 		}
 
+       catch (FileNotFoundException fileNotFoundException) {
+    	  	smooksloggerutil.fileNotFound();
+			throw new DamSmooksException("unable to find the property file");
+		} catch (IOException e) {
+			smooksloggerutil.Ioexception();
+			throw new DamSmooksException("unable to load the property file");
+		}
 		catch (DamSmooksException damSmooksException) {
 			System.out.println(damSmooksException.getMessage());
 			

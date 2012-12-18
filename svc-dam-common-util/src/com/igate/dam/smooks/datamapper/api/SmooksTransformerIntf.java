@@ -8,7 +8,7 @@ import org.milyn.payload.JavaResult;
 import com.igate.dam.smooks.exception.DamSmooksException;
 
 /**
- * @author 706440
+ * @author 
  *
  */
 public interface SmooksTransformerIntf {

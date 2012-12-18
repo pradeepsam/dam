@@ -69,6 +69,7 @@ public class SmooksTransformerImpl implements SmooksTransformerIntf{
 		StringWriter writer = null;
 		ExecutionContext executionContext = null;
 		FileWriter fileWriter = null;
+		
 		try {
 
 			smooks = new Smooks(configFileName);
@@ -184,7 +185,11 @@ public class SmooksTransformerImpl implements SmooksTransformerIntf{
 		}
 	}
 	
+	
+	
+	  
+		
+		 
+	 }
 
-
-}
 	
