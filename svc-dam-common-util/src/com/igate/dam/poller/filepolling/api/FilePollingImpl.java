@@ -1,4 +1,4 @@
-package com.igate.dam.poller.service;
+package com.igate.dam.poller.filepolling.api;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,20 +6,24 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
-import com.igate.dam.poller.exception.DamJnotifyException;
-import com.igate.dam.poller.util.LoggerUtil;
-
 import net.contentobjects.jnotify.JNotify;
 import net.contentobjects.jnotify.JNotifyException;
 import net.contentobjects.jnotify.JNotifyListener;
 
-public class JNotifyFilePoller
-{
+import com.igate.dam.poller.exception.DamJnotifyException;
+import com.igate.dam.poller.util.LoggerUtil;
+
+public class FilePollingImpl implements FilePollingIntf{
+
 	
 	LoggerUtil jNotifyLogger=new LoggerUtil();
 	
-	public void filePolling(int time,String path) throws DamJnotifyException {
-	
+	/* (non-Javadoc)
+	 * @see com.igate.dam.poller.filepolling.api.FilePollingIntf#filePolling(int, java.lang.String)
+	 */
+
+	public void filePolling(int time, String path) throws DamJnotifyException {
+		// TODO Auto-generated method stub
 		jNotifyLogger.display();
 	    // watch mask, specify events you care about, or JNotify.FILE_ANY for all events.
 	    int mask = JNotify.FILE_CREATED  | 
@@ -85,21 +89,19 @@ public class JNotifyFilePoller
 	   
 	      jNotifyLogger.createFileLog(rootPath, name);
 	      
-	    }
-	    void print(String msg) {
-	      System.err.println(msg);
-	    }
+	    }   
 	  }
 	
-	  /*************************Loading the Property File******************************/
-	  
-	  
-	 public int loadPropertyFile()throws DamJnotifyException
-	 {
+
+	/* (non-Javadoc)
+	 * @see com.igate.dam.poller.filepolling.api.FilePollingIntf#loadPropertyFile()
+	 */
+	
+	public int loadPropertyFile() throws DamJnotifyException {
 		Properties properties=new Properties();
 		try
 		{
-		properties.load(new FileInputStream(new File("resources\\pollingInterval.properties")));
+		properties.load(new FileInputStream(new File("resources\\jnotify.properties")));
 		jNotifyLogger.loadPropertyFile();
 		String str=properties.getProperty("pollingInterval");
 		int time=Integer.parseInt(str);
@@ -115,5 +117,6 @@ public class JNotifyFilePoller
 		
 		 
 	 }
-	
-}
+	}
+
+
