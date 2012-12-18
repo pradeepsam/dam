@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:schema="http://dynamicworkflow/com/igate/dam" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://dynamicworkflow/com/igate/dam">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://dynamicworkflow/com/igate/dam">
+  <xs:element name="TriggerDynamicWorkFlowRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SupplierDetails">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="suppid" type="xs:byte"/>
+              <xs:element name="suppname" type="xs:string"/>
+              <xs:element name="currstep" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="TriggerDynamicWorkFlowResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="processinstanceid" type="xs:byte"/>
+        <xs:element name="invocationsuccess" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="TriggerDynamicWorkFlowRequest">
+    <wsdl:part element="schema:TriggerDynamicWorkFlowRequest" name="TriggerDynamicWorkFlowRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="TriggerDynamicWorkFlowResponse">
+    <wsdl:part element="schema:TriggerDynamicWorkFlowResponse" name="TriggerDynamicWorkFlowResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="DynamicWorkFlow">
+    <wsdl:operation name="TriggerDynamicWorkFlow">
+      <wsdl:input message="schema:TriggerDynamicWorkFlowRequest" name="TriggerDynamicWorkFlowRequest">
+    </wsdl:input>
+      <wsdl:output message="schema:TriggerDynamicWorkFlowResponse" name="TriggerDynamicWorkFlowResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="DynamicWorkFlowBinding" type="schema:DynamicWorkFlow">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="TriggerDynamicWorkFlow">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="TriggerDynamicWorkFlowRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="TriggerDynamicWorkFlowResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="DynamicWorkFlowService">
+    <wsdl:port binding="schema:DynamicWorkFlowBinding" name="DynamicWorkFlowPort">
+      <soap:address location="http://localhost:8081/svc-dynamic-workflow-manager/dynamicworkflow"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

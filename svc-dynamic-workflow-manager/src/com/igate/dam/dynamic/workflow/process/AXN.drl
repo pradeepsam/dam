@@ -1,0 +1,65 @@
+#created on: Apr 20, 2012
+package com.igate
+
+import com.igate.dam.dynamic.workflow.model.DynamicWorkFlow
+
+rule "one"
+	no-loop true
+	dialect "java" 
+    when
+		dynamicworkflow : DynamicWorkFlow( supp_name == "AXN") && DynamicWorkFlow(curr_Step == "")        
+    then
+    	dynamicworkflow.setNext_Step("Ingest");
+    	dynamicworkflow.setProcess_id("com.igate.ingest.workflow");
+    	dynamicworkflow.setCurr_Step("abc");
+    	update(dynamicworkflow);
+end
+
+rule "two"
+	no-loop true
+    when
+		dynamicworkflow : DynamicWorkFlow( supp_name == "AXN") && DynamicWorkFlow(curr_Step == "Ingest")   
+    then
+    	dynamicworkflow.setNext_Step("Encoding");
+    	dynamicworkflow.setProcess_id("com.igate.encode.workflow");
+    	dynamicworkflow.setCurr_Step("abc");
+    	update(dynamicworkflow);
+
+end
+
+rule "three"
+	no-loop true
+    when
+		dynamicworkflow : DynamicWorkFlow( supp_name == "AXN") && DynamicWorkFlow(curr_Step == "Encoding")     
+    then
+    	
+    	dynamicworkflow.setNext_Step("QA");
+    	dynamicworkflow.setProcess_id("com.igate.qa.workflow");
+    	dynamicworkflow.setCurr_Step("abc");
+    	update(dynamicworkflow);
+end
+
+
+rule "four"
+	no-loop true
+    when
+		dynamicworkflow : DynamicWorkFlow( supp_name == "AXN") && DynamicWorkFlow(curr_Step == "QA")     
+    then
+    	dynamicworkflow.setNext_Step("Publish");
+    	dynamicworkflow.setProcess_id("com.igate.publish.workflow");
+    	dynamicworkflow.setCurr_Step("abc");
+    	update(dynamicworkflow);
+end
+
+rule "five"
+	no-loop true
+    when
+		dynamicworkflow : DynamicWorkFlow( supp_name == "AXN") && DynamicWorkFlow(curr_Step == "Publish")     
+    then
+    	dynamicworkflow.setNext_Step("");
+    	dynamicworkflow.setProcess_id("");
+    	dynamicworkflow.setCurr_Step("abc");
+    	update(dynamicworkflow);
+end
+
+

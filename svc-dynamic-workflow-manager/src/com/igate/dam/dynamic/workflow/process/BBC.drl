@@ -1,0 +1,125 @@
+#created on: Apr 20, 2012
+package com.igate
+
+
+import org.drools.runtime.process.WorkflowProcessInstance;
+
+rule "one"
+
+    when
+   	    proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "")        
+    then
+    	
+    	wf.setNext_Step("QAMaster");
+    	wf.setProcess_id("com.sample.bpmn.qa");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+    	String curr_Step = (String)proc_Ins.getVariable("next_step");
+    	
+        System.out.println("Rule1" +curr_Step );
+        proc_Ins.setVariable("next_step","QAMaster");
+
+end
+
+rule "two"
+
+    when
+   	    proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "QAMaster")   
+    then
+    	wf.setNext_Step("Enc");
+    	wf.setProcess_id("com.sample.bpmn.encode");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+    	
+        System.out.println("Rule2" +curr_Step );
+        proc_Ins.setVariable("next_step","Enc");
+
+end
+
+rule "three"
+
+    when
+    	proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "Enc")     
+    then
+    	wf.setNext_Step("Archive");
+    	wf.setProcess_id("com.sample.bpmn.archive");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+        System.out.println("Rule3" +curr_Step );
+        proc_Ins.setVariable("next_step","Archive");
+
+end
+
+
+rule "four"
+
+    when
+    	proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "Archive")     
+    then
+    	wf.setNext_Step("");
+    	wf.setProcess_id("");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+        System.out.println("Rule4" +curr_Step );
+        proc_Ins.setVariable("next_step","");
+
+end
+
+
+rule "five"
+
+    when
+    	proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "EncTX")     
+    then
+    	wf.setNext_Step("QATX");
+    	wf.setProcess_id("com.sample.bpmn.qa");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+        System.out.println("Rule5" +curr_Step );
+        proc_Ins.setVariable("next_step","QATX");
+
+end
+
+
+rule "six"
+
+    when
+    	proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "QATX")     
+    then
+    	wf.setNext_Step("Publish");
+    	wf.setProcess_id("com.sample.bpmn.publish");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+        System.out.println("Rule6" +curr_Step );
+        proc_Ins.setVariable("next_step","Publish");
+
+end
+
+
+rule "seven"
+
+    when
+    	proc_Ins:WorkflowProcessInstance()
+		wf : WorkFlow( supp_name == "BBC") && WorkFlow(curr_Step == "Publish")     
+    then
+    	wf.setNext_Step("");
+    	wf.setProcess_id("");
+    	wf.setCurr_Step("abc");
+    	update(wf);
+        String curr_Step = (String)proc_Ins.getVariable("next_step");
+        System.out.println("Rule7" +curr_Step );
+        proc_Ins.setVariable("next_step","");
+
+end
+

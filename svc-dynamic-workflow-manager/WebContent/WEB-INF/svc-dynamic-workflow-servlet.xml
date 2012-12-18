@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<import resource="classpath:spring/spring-app-context.xml" />
+
+<bean class="org.springframework.ws.server.endpoint.mapping.PayloadRootQNameEndpointMapping">
+<property name="mappings">
+<props>
+<prop key="{http://dynamicworkflow/com/igate/dam}TriggerDynamicWorkFlowRequest">
+triggerDynamicWorkFlowEndPoint
+</prop>
+</props>
+</property>
+
+<!--<property name="interceptors">
+<list>
+<ref bean="userTokenSecurityInterceptor" />
+</list>
+</property>
+
+-->
+<!--<property name="interceptors">
+<list>
+<ref bean="signatureSecurityInterceptor" />
+</list>
+</property>
+-->
+</bean>
+
+
+
+
+
+<bean id="triggerDynamicWorkFlowEndPoint"
+class="com.igate.dam.dynamic.workflow.endpoint.DynamicWorkFlowEndPoint">
+<property name="dynamicWorkFlowService" ref="dynamicworkflowservice" />
+<property name="marshaller" ref="marshaller" />
+<property name="unmarshaller" ref="marshaller" />
+</bean>
+
+<!--<bean id="dam"
+class="org.springframework.ws.wsdl.wsdl11.DynamicWsdl11Definition">
+<property name="builder">
+<bean class="org.springframework.ws.wsdl.wsdl11.builder.XsdBasedSoap11Wsdl4jDefinitionBuilder">
+<property name="schema" value="/WEB-INF/dynamicworkflow.xsd" />
+<property name="followIncludeImport" value="true"/>
+<property name="portTypeName" value="DynamicWorkFlow" />
+<property name="locationUri" value="http://localhost:8081/svc-dynamic-workflow-manager/dynamicworkflow" />
+</bean>
+</property>
+</bean>
+
+-->
+
+<!--<bean id="employee" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+<property name="schema" ref="schema"/>
+<property name="portTypeName" value="EmployeeDetails"/>
+<property name="locationUri" value="http://localhost:8080/emsservices/emsserv"/>
+</bean>
+
+<bean id="schema" class="org.springframework.xml.xsd.SimpleXsdSchema">
+    <property name="xsd" value="/WEB-INF/saveemployee.xsd"/>
+</bean>
+
+-->
+
+<!--<bean id="employee" class="org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition">
+<property name="portTypeName" value="EmployeeDetails"/>
+<property name="locationUri" value="http://localhost:8080/emsservices/emsserv"/>
+<property name="targetNamespace" value="http://com/igate/ems/services"></property>
+<property name="schemaCollection" ref="schemaCollection"/>
+</bean>
+
+<bean id="schemaCollection" class="org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection">
+    <description>
+        This bean wrap the messages.xsd (which imports types.xsd), and inlines them as a one.
+    </description>
+    <property name="xsds">
+        <list>
+        	<value>/xsd/employee.xsd</value>
+            <value>/xsd/saveemployee.xsd</value>
+            
+        </list>
+    </property>
+    <property name="inline" value="true"/>
+</bean>
+
+-->
+
+<!--<bean id="marshaller"
+class="org.springframework.oxm.castor.CastorMarshaller">
+<property name="mappingLocation" value="/WEB-INF/mapping/mapping.xml" />
+</bean>
+
+
+-->
+<bean id="marshaller"
+class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+<property name="contextPath" value="com.igate.dam.dynamic.workflow.model" />
+</bean>
+
+<!--<bean id="userTokenSecurityInterceptor"
+		class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+		<property name="policyConfiguration"
+			value="/WEB-INF/security/usernametoken.xml" />
+		<property name="callbackHandlers">
+			<list>
+				<ref bean="passwordValidationHandler" />
+			</list>
+		</property>
+</bean>
+
+<bean id="passwordValidationHandler"
+		class="org.springframework.ws.soap.security.xwss.callback.SimplePasswordValidationCallbackHandler">
+		<property name="users">
+			<props>
+				<prop key="Abu">pa55word</prop>
+			</props>
+		</property>
+	</bean>
+ 
+-->
+
+<!--<bean id="keyStoreHandler"
+		class="org.springframework.ws.soap.security.xwss.callback.KeyStoreCallbackHandler">
+		<property name="trustStore" ref="keyStore" />
+	</bean>
+
+	<bean id="keyStore"
+		class="org.springframework.ws.soap.security.support.KeyStoreFactoryBean">
+		<property name="password" value="d0tmed1a" />
+		<property name="location" value="/WEB-INF/security/servicesKeyStore.jks" />
+	</bean>
+<bean id="signatureSecurityInterceptor"
+		class="org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor">
+		<property name="policyConfiguration" value="/WEB-INF/security/usernametoken.xml" />
+		<property name="callbackHandlers">
+			<list>
+				<ref bean="keyStoreHandler" />
+			</list>
+		</property>
+	</bean>
+
+-->
+
+<bean id="dam" class="org.springframework.ws.wsdl.wsdl11.SimpleWsdl11Definition">
+<constructor-arg value="/WEB-INF/dynamicworkflow.wsdl"/>
+</bean>
+
+
+</beans>
