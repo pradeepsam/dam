@@ -28,19 +28,17 @@ public class SmooksTransformerImpl implements SmooksTransformerIntf{
 
 /********** XML to JAVA Transformation ********/
 	@Override
-	public JavaResult xmlToJavaTransformation(File inputFile,String configFileName) throws DamSmooksException {
+	public JavaResult xmlToJavaTransformation(String inputFileName,String configFileName) throws DamSmooksException {
 		
 		    JavaResult javaResult=new JavaResult();
 			StringReader reader = null;
 			Smooks smooks = null;
 			String xmlContent = null;
-			String path = null;
 			ExecutionContext executionContext = null;
 			try {
 				 smooks = new Smooks(configFileName);
 				 executionContext = smooks.createExecutionContext();
-				 path = inputFile.getAbsolutePath();
-				 xmlContent = getFileContent(path);
+				 xmlContent = getFileContent(inputFileName);
 				 reader = new StringReader(xmlContent);
 				 smooks.filterSource(executionContext, new StreamSource(reader),javaResult);
 			} 
@@ -106,12 +104,14 @@ public class SmooksTransformerImpl implements SmooksTransformerIntf{
 
 /******* CSV to JAVA Transformation ************/
 	@Override
-	public JavaResult csvToJavaTransformation(File inputFile,String configFileName) throws DamSmooksException {
+	public JavaResult csvToJavaTransformation(String inputFileName,String configFileName) throws DamSmooksException {
 		Smooks smooks = null;
 		JavaResult javaresult = null;
 		ExecutionContext executionContext = null;
 		String messageIn = null;
+		
 		try {
+			File inputFile=new File(inputFileName);
 			messageIn = readInputMessage(inputFile);
 			smooks = new Smooks(configFileName);
 			executionContext = smooks.createExecutionContext();

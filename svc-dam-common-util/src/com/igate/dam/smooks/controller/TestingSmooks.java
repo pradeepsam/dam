@@ -10,18 +10,24 @@ import org.apache.commons.io.FileUtils;
 
 public class TestingSmooks
 {
+	/**
+	 * @param args
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 */
 	@SuppressWarnings("rawtypes")
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		
 		Properties properties=new Properties();
-		properties.load(new FileInputStream(new File("resources\\FilePaths.properties")));
+		properties.load(new FileInputStream(new File("config\\resources\\FilePaths.properties")));
 		String directoryName=properties.getProperty("inputDirectory");
 		Iterator it = FileUtils.iterateFiles(new File(directoryName), null,false);
         while(it.hasNext()){
                   String fileName=((File) it.next()).getName();
-                  String inputFile=directoryName+fileName;
+                  String inputFileName=directoryName+fileName;
+               
 		TransformationMain transformationMain=new TransformationMain();
-		transformationMain.fileMapperOperationInput(new File(inputFile));
+		transformationMain.fileMapperOperationInput(inputFileName);
 	}
 
 }
