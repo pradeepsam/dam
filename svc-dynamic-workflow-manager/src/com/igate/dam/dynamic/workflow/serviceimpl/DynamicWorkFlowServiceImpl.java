@@ -66,11 +66,11 @@ public class DynamicWorkFlowServiceImpl implements DynamicWorkFlowService {
 			for(Object ob:arrList){
 				dynamicWorkFlow = (DynamicWorkFlow)ob;
 			 }   
-			 System.out.println(dynamicWorkFlow);
+			 System.out.println("setNextWorkFlowStep------------------------>Before"+dynamicWorkFlow);
 			 FactHandle factHandle = statefulSession.getFactHandle(dynamicWorkFlow);
-			 System.out.println(factHandle);    
+			 System.out.println("setNextWorkFlowStep------------------------>FactHandle"+factHandle);    
 			 dynamicWorkFlow.setCurr_Step(dynamicWorkFlow.getNext_Step());
-			 System.out.println(dynamicWorkFlow);
+			 System.out.println("setNextWorkFlowStep------------------------>After"+dynamicWorkFlow);
 			 statefulSession.update(factHandle, dynamicWorkFlow);
 			 statefulSession.fireAllRules();
 		}

@@ -19,7 +19,9 @@
     <endEvent id="_2" name="End" >
         <terminateEventDefinition/>
     </endEvent>
-    <scriptTask id="_3" name="Script" />
+    <scriptTask id="_3" name="Script" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("This is Ingest WorkFlow");</script>
+    </scriptTask>
 
     <!-- connections -->
     <sequenceFlow id="_3-_2" sourceRef="_3" targetRef="_2" />
