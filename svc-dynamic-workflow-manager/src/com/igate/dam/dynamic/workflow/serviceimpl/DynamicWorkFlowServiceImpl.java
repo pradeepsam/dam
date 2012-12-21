@@ -42,10 +42,12 @@ public class DynamicWorkFlowServiceImpl implements DynamicWorkFlowService {
 		dynamicWorkFlow.setSupp_id(suppId);
 		dynamicWorkFlow.setSupp_name(suppName);
 		dynamicWorkFlow.setCurr_Step("");
+		FactHandle factHandle = null;
 		
 		Map<String,Object> processMap = new HashMap<String,Object>();
 		processMap.put("dynamicworkflow", dynamicWorkFlow);
-		procIns = statefulknowsession.startProcess(ConstantUtil.DYNAMIC_WORKFLOW_ID,processMap);
+		
+		procIns = statefulknowsession.startProcess("com.igate.dynamic.workflow.fact",processMap);
 		}
 		catch(Exception exp){
 			System.out.println(exp.getMessage());

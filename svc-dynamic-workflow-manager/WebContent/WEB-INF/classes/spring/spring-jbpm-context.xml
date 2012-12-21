@@ -52,15 +52,17 @@ http://drools.org/schema/drools-spring.xsd">
     -->
     
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/DynamicWorkFlow.bpmn"/>
+    <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/DynamicWorkFlowWithFactHandle.bpmn"/>
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/Ingest.bpmn"/>
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/Encode.bpmn"/>
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/QA.bpmn"/>
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/Publish.bpmn"/>
     <jbpm:resource type="BPMN2" source="classpath:com/igate/dam/dynamic/workflow/process/Archive.bpmn"/>
-    <!--<jbpm:resource type="DRL" source="classpath:com/igate/dam/dynamic/workflow/process/AXN.drl"></jbpm:resource>
-    -->
+    <jbpm:resource type="DRL" source="classpath:com/igate/dam/dynamic/workflow/process/AXN.drl"></jbpm:resource><!--
     
     <jbpm:resource type="CHANGE_SET" source="classpath:com/igate/dam/dynamic/workflow/changeset/ChangeSet.xml"/>
+    -->
+    
     </jbpm:resources>
   </jbpm:kbase>
   
