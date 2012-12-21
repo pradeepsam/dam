@@ -4,19 +4,29 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import net.contentobjects.jnotify.JNotify;
 import net.contentobjects.jnotify.JNotifyException;
 import net.contentobjects.jnotify.JNotifyListener;
 
 import com.igate.dam.poller.exception.DamJnotifyException;
+import com.igate.dam.poller.filepolling.constants.PollingConstants;
 import com.igate.dam.poller.util.LoggerUtil;
 
 public class FilePollingImpl implements FilePollingIntf{
 
 	
 	LoggerUtil jNotifyLogger=new LoggerUtil();
+	
+	Map<String,String> map=new HashMap<String,String>();
+	
+	Set<String> fileset=new HashSet<String>();
 	
 	/* (non-Javadoc)
 	 * @see com.igate.dam.poller.filepolling.api.FilePollingIntf#filePolling(int, java.lang.String)
@@ -73,21 +83,21 @@ public class FilePollingImpl implements FilePollingIntf{
 	    {
 	    	
 	    
-	      jNotifyLogger.renameFileLog(rootPath, oldName, newName);
+	     // jNotifyLogger.renameFileLog(rootPath, oldName, newName);
 	    }
 	    public void fileModified(int wd, String rootPath, String name) {
 	    	
 	  
-	    	jNotifyLogger.fileModifiedLog(wd, rootPath, name);
+	    	//jNotifyLogger.fileModifiedLog(wd, rootPath, name);
 	    }
 	    public void fileDeleted(int wd, String rootPath, String name) {
 	 
-	      jNotifyLogger.fileDeletedLog(wd, rootPath, name);
+	     // jNotifyLogger.fileDeletedLog(wd, rootPath, name);
 	    }
 	    public void fileCreated(int wd, String rootPath, String name) 
 	    {
-	   
-	      jNotifyLogger.createFileLog(rootPath, name);
+	    	addFilename(name);
+	     // jNotifyLogger.createFileLog(rootPath, name);
 	      
 	    }   
 	  }
@@ -101,7 +111,7 @@ public class FilePollingImpl implements FilePollingIntf{
 		Properties properties=new Properties();
 		try
 		{
-		properties.load(new FileInputStream(new File("resources\\jnotify.properties")));
+		properties.load(new FileInputStream(new File("config\\resources\\jnotify.properties")));
 		jNotifyLogger.loadPropertyFile();
 		String str=properties.getProperty("pollingInterval");
 		int time=Integer.parseInt(str);
@@ -117,6 +127,77 @@ public class FilePollingImpl implements FilePollingIntf{
 		
 		 
 	 }
-	}
+	
+	/**
+	 * @param name
+	 */
+	public void addFilename(String name)
+	{
+		if(name.contains("."))
+		{
+			fileset.add(name);
+		}
+		@SuppressWarnings("rawtypes")
+		Iterator it=fileset.iterator();
+		while(it.hasNext())
+		{
+			String fileNamelist= (String) it.next();
+			
+			System.out.println(fileset.size());
+			System.out.println(fileNamelist);
+			
+			if(fileNamelist.contains(PollingConstants.AXN))
+			{
+			if(fileNamelist.contains(PollingConstants.VIDEO))
+			{
+				map.put(PollingConstants.AXNVIDEO,fileNamelist);
+			}
+			else if(fileNamelist.contains(PollingConstants.METADATA))
+			{
+				map.put(PollingConstants.AXNMETADATA,fileNamelist);
+			}
+			else if(fileNamelist.contains(PollingConstants.MD5))
+			{
+				map.put(PollingConstants.AXNMD5,fileNamelist);
+			}
+			}
+			if(fileNamelist.contains(PollingConstants.NDTV))
+			{
+				if(fileNamelist.contains(PollingConstants.VIDEO))
+				{
+					map.put(PollingConstants.NDTVVIDEO,fileNamelist);
+				}
+				else if(fileNamelist.contains(PollingConstants.METADATA))
+				{
+					map.put(PollingConstants.NDTVMETADATA,fileNamelist);
+				}
+				else if(fileNamelist.contains(PollingConstants.MD5))
+				{
+					map.put(PollingConstants.NDTVMD5,fileNamelist);
+				}
+				}
+			if(fileNamelist.contains(PollingConstants.FOX))
+			{
+				if(fileNamelist.contains(PollingConstants.VIDEO))
+				{
+					map.put(PollingConstants.FOXVIDEO,fileNamelist);
+				}
+				else if(fileNamelist.contains(PollingConstants.METADATA))
+				{
+					map.put(PollingConstants.FOXMETADATA,fileNamelist);
+				}
+				else if(fileNamelist.contains(PollingConstants.MD5))
+				{
+					map.put(PollingConstants.FOXMD5,fileNamelist);
+				}
+				}
+		}
+		
+		
+			for (Map.Entry<String,String> entry : map.entrySet()) {
+			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+			}
 
+	}
+	}
 

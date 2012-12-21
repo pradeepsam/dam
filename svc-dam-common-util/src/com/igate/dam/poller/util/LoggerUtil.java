@@ -14,7 +14,7 @@ public class LoggerUtil {
 	 
 	public LoggerUtil()
 	{
-		  PropertyConfigurator.configure("resources\\log4j.properties");
+		  PropertyConfigurator.configure("config\\resources\\log4j.properties");
 	}
 	 public void loadDirectoryName(String directoryName)
      {
