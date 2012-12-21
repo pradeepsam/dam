@@ -14,7 +14,7 @@ public class LoggerUtil {
 	 
 	public LoggerUtil()
 	{
-		  PropertyConfigurator.configure("resources\\log4j.properties");
+		  PropertyConfigurator.configure("config\\resources\\log4j.properties");
 	}
 	 public void loadDirectoryName(String directoryName)
      {
@@ -55,5 +55,13 @@ public class LoggerUtil {
      public void display()
      {
     	 logger.info(" jnotify poller started monitoring...");
+     }
+     public void show(String msg)
+     {
+    	 logger.info("New files found:"+msg);
+     }
+     public void showOutput(String msg)
+     {
+    	 logger.info("New files found by the jnotify Poller :"+msg);
      }
 }

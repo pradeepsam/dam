@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.dam.igate.com/Checksum/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Checksum" targetNamespace="http://www.dam.igate.com/Checksum/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.dam.igate.com/Checksum/">
+       <xsd:element name="user">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="userFile" type="xsd:string"/>
+            <xsd:element name="md5valueFile" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="userResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="checksumvalueMatch" type="xsd:boolean"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="userRequest">
+    <wsdl:part element="tns:user" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="userResponse">
+    <wsdl:part element="tns:userResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="user">
+    <wsdl:operation name="user">
+      <wsdl:input message="tns:userRequest"/>
+      <wsdl:output message="tns:userResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ChecksumSOAP" type="tns:user">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="user">
+      <soap:operation soapAction="http://www.dam.igate.com/Checksum/user"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+ <wsdl:service name="user">
+    <wsdl:port binding="tns:ChecksumSOAP" name="ChecksumSOAP">
+      <soap:address location="http://localhost:8080/svc-dam-checksumutil/services"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

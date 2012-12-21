@@ -15,7 +15,7 @@
 	<property name="lib.dir" value="${lib.dir}" />
 	<property name="build.dir" value="${build.dir}" />
 	<property name="dist.dir" value="${dist.dir}" />
-	<property name="war.dir" value="${war.dir}" />
+	<property name="jar.dir" value="${jar.dir}" />
 
 	<!-- =================================================================== -->
 	<!--             THIRD PARTY JARS                               		 -->
@@ -23,7 +23,7 @@
 
 
 	<!-- Spring libraries -->
-	<fileset id="spring" dir="${lib.dir}">
+		<fileset id="spring" dir="${lib.dir}">
 		<include name="spring.aop-3.0.6.jar" />
 		<include name="spring-aopalliance-1.0.0.jar" />
 		<include name="spring-asm-3.0.6.jar" />

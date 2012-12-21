@@ -9,7 +9,7 @@ public class SmooksLoggerUtil {
 	 
 	public SmooksLoggerUtil()
 	{
-		  PropertyConfigurator.configure("resources\\log4j.properties");
+		  PropertyConfigurator.configure("config\\resources\\log4j.properties");
 	}
 	public void display(Object message)
 	{

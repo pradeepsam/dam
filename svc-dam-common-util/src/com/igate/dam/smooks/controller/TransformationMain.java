@@ -17,15 +17,14 @@ import com.igate.dam.smooks.exception.DamSmooksException;
 public class TransformationMain {
 	
 	SmooksLoggerUtil smooksloggerutil=new SmooksLoggerUtil();
+	
 	/**
-	 * @param args
-	 * @throws IOException 
-	 * @throws FileNotFoundException 
+	 * @param inputFileName
 	 * @throws DamSmooksException
 	 */
 	@SuppressWarnings("rawtypes")
 	
-	public void fileMapperOperationInput(File inputFile) throws DamSmooksException
+	public void fileMapperOperationInput(String inputFileName) throws DamSmooksException
 	{
 		
 		String fileName = null;
@@ -35,36 +34,36 @@ public class TransformationMain {
 		JavaResult javaResult = null;
 		Person person = new Person();
 		String outputFilePath=null;
-		
+				
 		try
 		{
-		
-			fileName=inputFile.getName();
-			smooksloggerutil.logFileName(fileName);
-			mid= fileName.lastIndexOf(".");
-			ext=fileName.substring(mid+1,fileName.length());  
+			smooksloggerutil.logFileName(inputFileName);
+			mid= inputFileName.lastIndexOf(".");
+			ext=inputFileName.substring(mid+1,inputFileName.length());  
 					
 			SmooksBO smooksBO = new SmooksBO();
+			File inputFile=new File(inputFileName);
+		    fileName=inputFile.getAbsolutePath();
 			
 			if(ext.equalsIgnoreCase("xml")){
 				configFileName = "smooks-config-XmlToJava.xml";
-				javaResult  = smooksBO.xmlToJavaTransformation(inputFile, configFileName);
+				javaResult  = smooksBO.xmlToJavaTransformation(fileName, configFileName);
 				person = (Person) javaResult.getBean("person");
 				smooksloggerutil.display("XML to Java Transformation results in Java bean output --->"+person.getFirstName());
 			}
 			else if(ext.equalsIgnoreCase("java")){
 				configFileName = "smooks-config-JavaToXml.xml";
 				Properties properties=new Properties();
-				properties.load(new FileInputStream(new File("resources\\FilePaths.properties")));
+				properties.load(new FileInputStream(new File("config\\resources\\FilePaths.properties")));
 				outputFilePath =properties.getProperty("outputDirectory");
 			    smooksBO.javaToXMLTransformation(person, configFileName,outputFilePath);
 				smooksloggerutil.display("output xml is stored in :"+outputFilePath);
 			}
 			else if(ext.equalsIgnoreCase("csv")){
 				configFileName= "smooks-config-CsvToJava.xml";
-				javaResult = smooksBO.csvToJavaTransformation(inputFile, configFileName);
+				javaResult = smooksBO.csvToJavaTransformation(fileName, configFileName);
 				Object list=(List)javaResult.getBean("person");
-				smooksloggerutil.display("XML to Java Transformation results in Java bean output --->"+list);
+				smooksloggerutil.display("CSV to Java Transformation results in Java bean output --->"+list);
 			}
 			else{
 				smooksloggerutil.display("Invaild input file");

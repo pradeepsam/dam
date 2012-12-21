@@ -1,7 +1,7 @@
 
 package com.igate.dam.smooks.bo;
 
-import java.io.File;
+
 import org.milyn.payload.JavaResult;
 
 import com.igate.dam.smooks.Logger.SmooksLoggerUtil;
@@ -14,16 +14,16 @@ public class SmooksBO {
 	SmooksLoggerUtil smooksloggerutil=new SmooksLoggerUtil();
 	
 	/**
-	 * @param inputFile
+	 * @param inputFileName
 	 * @param configFileName
 	 * @return
 	 * @throws DamSmooksException
 	 */
-	public JavaResult xmlToJavaTransformation(File inputFile, String configFileName) throws DamSmooksException{
+	public JavaResult xmlToJavaTransformation(String inputFileName, String configFileName) throws DamSmooksException{
 		JavaResult javaResult = null;
 		try{
 			SmooksTransformerIntf smooksTransformerIntf = new SmooksTransformerImpl();
-			javaResult = smooksTransformerIntf.xmlToJavaTransformation(inputFile, configFileName);
+			javaResult = smooksTransformerIntf.xmlToJavaTransformation(inputFileName, configFileName);
 			
 		}
 		catch(DamSmooksException damSmooksException){
@@ -53,16 +53,16 @@ public class SmooksBO {
 	}
 	
 	/**
-	 * @param inputFile
+	 * @param inputFileName
 	 * @param configFileName
 	 * @return
 	 * @throws DamSmooksException
 	 */
-	public JavaResult csvToJavaTransformation(File inputFile, String configFileName) throws DamSmooksException{
+	public JavaResult csvToJavaTransformation(String inputFileName, String configFileName) throws DamSmooksException{
 		JavaResult javaResult = null;
 		try{
 			SmooksTransformerIntf smooksTransformerIntf = new SmooksTransformerImpl();
-			javaResult = smooksTransformerIntf.csvToJavaTransformation(inputFile, configFileName);
+			javaResult = smooksTransformerIntf.csvToJavaTransformation(inputFileName, configFileName);
 		}
 		catch(DamSmooksException damSmooksException){
 			smooksloggerutil.damsmooksexception();
