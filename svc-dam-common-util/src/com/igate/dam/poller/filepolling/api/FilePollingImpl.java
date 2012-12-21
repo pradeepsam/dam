@@ -26,7 +26,7 @@ public class FilePollingImpl implements FilePollingIntf{
 	
 	Map<String,String> map=new HashMap<String,String>();
 	
-	Set<String> fileset=new HashSet<String>();
+	Set<String> fileNamelist=new HashSet<String>();
 	
 	/* (non-Javadoc)
 	 * @see com.igate.dam.poller.filepolling.api.FilePollingIntf#filePolling(int, java.lang.String)
@@ -81,23 +81,21 @@ public class FilePollingImpl implements FilePollingIntf{
 	
 	    public void fileRenamed(int wd, String rootPath, String oldName,String newName) 
 	    {
-	    	
-	    
-	     // jNotifyLogger.renameFileLog(rootPath, oldName, newName);
+	    	jNotifyLogger.renameFileLog(rootPath, oldName, newName);
 	    }
-	    public void fileModified(int wd, String rootPath, String name) {
+	    public void fileModified(int wd, String rootPath, String name) 
+	    {
 	    	
-	  
-	    	//jNotifyLogger.fileModifiedLog(wd, rootPath, name);
+	    	jNotifyLogger.fileModifiedLog(wd, rootPath, name);
 	    }
-	    public void fileDeleted(int wd, String rootPath, String name) {
-	 
-	     // jNotifyLogger.fileDeletedLog(wd, rootPath, name);
+	    public void fileDeleted(int wd, String rootPath, String name)
+	    {
+	    	jNotifyLogger.fileDeletedLog(wd, rootPath, name);
 	    }
 	    public void fileCreated(int wd, String rootPath, String name) 
 	    {
 	    	addFilename(name);
-	     // jNotifyLogger.createFileLog(rootPath, name);
+	    	jNotifyLogger.createFileLog(rootPath, name);
 	      
 	    }   
 	  }
@@ -135,16 +133,15 @@ public class FilePollingImpl implements FilePollingIntf{
 	{
 		if(name.contains("."))
 		{
-			fileset.add(name);
+			fileNamelist.add(name);
 		}
 		@SuppressWarnings("rawtypes")
-		Iterator it=fileset.iterator();
+		Iterator it=fileNamelist.iterator();
 		while(it.hasNext())
 		{
 			String fileNamelist= (String) it.next();
-			
-			System.out.println(fileset.size());
-			System.out.println(fileNamelist);
+		
+			jNotifyLogger.show(fileNamelist);	
 			
 			if(fileNamelist.contains(PollingConstants.AXN))
 			{
@@ -193,9 +190,9 @@ public class FilePollingImpl implements FilePollingIntf{
 				}
 		}
 		
-		
 			for (Map.Entry<String,String> entry : map.entrySet()) {
-			    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+			    jNotifyLogger.showOutput("Key = " + entry.getKey() + ", Value = " + entry.getValue());
+
 			}
 
 	}

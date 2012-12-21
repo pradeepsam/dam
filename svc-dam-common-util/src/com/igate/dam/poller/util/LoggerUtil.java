@@ -56,4 +56,12 @@ public class LoggerUtil {
      {
     	 logger.info(" jnotify poller started monitoring...");
      }
+     public void show(String msg)
+     {
+    	 logger.info("New files found:"+msg);
+     }
+     public void showOutput(String msg)
+     {
+    	 logger.info("New files found by the jnotify Poller :"+msg);
+     }
 }
