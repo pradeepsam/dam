@@ -1,10 +1,16 @@
 package com.igate.dam.filenamingservice.dto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Vendor {
+public class Vendor implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6539642666774923544L;
+	
 	private String vendorName;
 	private List<String> mediaFormatList=new ArrayList<String>();
 	private List<String> metadataFormatList=new ArrayList<String>();

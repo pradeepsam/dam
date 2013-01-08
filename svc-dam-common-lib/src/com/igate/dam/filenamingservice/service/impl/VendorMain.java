@@ -5,6 +5,7 @@ import java.io.File;
 import java.util.Iterator;
 import java.util.ResourceBundle;
 import org.apache.commons.io.FileUtils;
+import org.drools.runtime.StatefulKnowledgeSession;
 
 import com.igate.dam.filenamingservice.constants.FileNamingServiceConstants;
 import com.igate.dam.filenamingservice.exception.FileNamingServiceException;
@@ -20,11 +21,23 @@ public class VendorMain {
 		boolean result=false; 
 		Iterator iterator=null;
 		FileNamingServiceLogger fileNamingServiceLogger=new FileNamingServiceLogger();
-		
+	
 		try{
 			
 			FileNamingServiceIntf fileNamingServiceIntf = new FileNamingServiceImpl();
 			ResourceBundle resourceBundle=ResourceBundle.getBundle(FileNamingServiceConstants.VENDOR_PROPERTY_FILE_NAME);//Name of the prop file
+			String vendors=resourceBundle.getString(FileNamingServiceConstants.VENDOR_NAMES);
+			String baseFolder=resourceBundle.getString(FileNamingServiceConstants.BASE_FOLDER_LOCATION);
+			StatefulKnowledgeSession  statefulSession = null;
+			result=fileNamingServiceIntf.validateFile(baseFolder+"/"+vendors,statefulSession);
+			System.out.println("Physical Path Details"+result);
+		}
+		catch (FileNamingServiceException exception) 
+        {
+       	  fileNamingServiceLogger.logFileNamingServiceException(exception.getMessage());
+       	
+        }
+			/*ResourceBundle resourceBundle=ResourceBundle.getBundle(FileNamingServiceConstants.VENDOR_PROPERTY_FILE_NAME);//Name of the prop file
 			String vendors=resourceBundle.getString(FileNamingServiceConstants.VENDOR_NAMES);
 			String baseFolder=resourceBundle.getString(FileNamingServiceConstants.BASE_FOLDER_LOCATION);
 			String[] vendorNames=vendors.split(",");
@@ -76,8 +89,13 @@ public class VendorMain {
             {
             	result=false;
             }
-     	    System.out.println("File Validation Result:"+result);
 			
+     	    System.out.println("File Validation Result:"+result);
+     	    if(result){
+				 System.out.println("File Physical path details:D:\\Vendor\\Metadat\\Filename.xml"+result);
+			 }else{
+				 System.out.println("Vendor folder physical path details:D:\\VEndor"+result);
+			 }
      	 					
           }
 		}
@@ -85,7 +103,7 @@ public class VendorMain {
          {
         	  fileNamingServiceLogger.logFileNamingServiceException(exception.getMessage());
         	
-         }
+         }*/
 
 	
 	}
